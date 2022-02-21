@@ -48,7 +48,7 @@ public class TarefaController {
 		
 		service.alocarPessoa(idTarefa, tarefaDTO.transformaParaObjeto());
 		
-		return new ResponseEntity<>(HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 
 	@RequestMapping(method = RequestMethod.PUT, path = "/finalizar/{id}", consumes = CONTENT_TYPE)

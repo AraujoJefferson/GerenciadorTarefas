@@ -1,7 +1,12 @@
 package br.com.crja.api.gerentarefas.exception;
 
 public class RegistroInexistenteException extends RuntimeException {
-    public RegistroInexistenteException() {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1625182870914417843L;
+
+	public RegistroInexistenteException() {
         super();
     }
 

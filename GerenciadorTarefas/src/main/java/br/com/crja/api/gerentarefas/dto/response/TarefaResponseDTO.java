@@ -4,6 +4,7 @@ import java.time.format.DateTimeFormatter;
 
 import org.springframework.util.StringUtils;
 
+import br.com.crja.api.gerentarefas.constant.ApplicationConstants;
 import br.com.crja.api.gerentarefas.entity.Pessoa;
 import br.com.crja.api.gerentarefas.entity.Tarefa;
 
@@ -37,7 +38,7 @@ public class TarefaResponseDTO {
 		}
 		
 		return new TarefaResponseDTO(tarefa.getTitulo(), tarefa.getDescricao(),
-				tarefa.getPrazo().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+				tarefa.getPrazo().format(DateTimeFormatter.ofPattern(ApplicationConstants.DATE_PATTERN)),
 				tarefa.getIdDepartamento().getTitulo(), tarefa.getDuracao(), nome,
 				tarefa.getFinalizado());
 	}

@@ -1,5 +1,12 @@
 package br.com.crja.api.gerentarefas.controller;
 
+import static br.com.crja.api.gerentarefas.constant.ApplicationConstants.CONTENT_TYPE;
+import static br.com.crja.api.gerentarefas.constant.MensagemConstants.PESSOA_ADICIONAR;
+import static br.com.crja.api.gerentarefas.constant.MensagemConstants.PESSOA_ALTERAR;
+import static br.com.crja.api.gerentarefas.constant.MensagemConstants.PESSOA_MEDIA;
+import static br.com.crja.api.gerentarefas.constant.MensagemConstants.PESSOA_REMOVER;
+import static br.com.crja.api.gerentarefas.constant.MensagemConstants.PESSOA_TOTAL;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -20,14 +27,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.crja.api.gerentarefas.constant.ApplicationConstants;
 import br.com.crja.api.gerentarefas.dto.request.PessoaRequestDTO;
 import br.com.crja.api.gerentarefas.dto.response.PessoaResponseDTO;
 import br.com.crja.api.gerentarefas.entity.Pessoa;
 import br.com.crja.api.gerentarefas.exception.DataIncorretaException;
 import br.com.crja.api.gerentarefas.service.IPessoaService;
-
-import static br.com.crja.api.gerentarefas.constant.MensagemConstants.*;
-import static br.com.crja.api.gerentarefas.constant.ApplicationConstants.CONTENT_TYPE;
 
 @RestController
 @Validated
@@ -80,10 +85,10 @@ public class PessoaController {
 
 	@RequestMapping(method = RequestMethod.GET, path = "/gastos", consumes = CONTENT_TYPE)
 	public ResponseEntity<List<?>> mediaHorasGastasPorTarefa(@RequestParam("nome") String nome,
-			@RequestParam("dtInicio") @DateTimeFormat(pattern = "YYYY-MM-DD") String dtInicio,
-			@RequestParam("dtFim") @DateTimeFormat(pattern = "YYYY-MM-DD") String dtFim) {
+			@RequestParam("dtInicio") @DateTimeFormat(pattern = ApplicationConstants.DATE_PATTERN) String dtInicio,
+			@RequestParam("dtFim") @DateTimeFormat(pattern = ApplicationConstants.DATE_PATTERN) String dtFim) {
 		LOGGER.info(PESSOA_MEDIA);
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(ApplicationConstants.DATE_PATTERN);
 		LocalDate dateInicio = LocalDate.parse(dtInicio, formatter);
 		LocalDate dateFim = LocalDate.parse(dtFim, formatter);
 

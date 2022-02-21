@@ -6,5 +6,5 @@ import br.com.crja.api.gerentarefas.entity.Departamento;
 
 public interface IDepartamentoService {
 	Departamento buscarPorId(Departamento departamento);
-	List listarDepartamento();
+	List<?> listarDepartamento();
 }

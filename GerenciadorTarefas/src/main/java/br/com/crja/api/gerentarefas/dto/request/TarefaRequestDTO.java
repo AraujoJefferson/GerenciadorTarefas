@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 import org.springframework.util.StringUtils;
 
+import br.com.crja.api.gerentarefas.constant.ApplicationConstants;
 import br.com.crja.api.gerentarefas.entity.Departamento;
 import br.com.crja.api.gerentarefas.entity.Pessoa;
 import br.com.crja.api.gerentarefas.entity.Tarefa;
@@ -33,7 +34,7 @@ public class TarefaRequestDTO {
 		tarefa.setTitulo(titulo);
 		tarefa.setDescricao(descricao);
 		if (!StringUtils.isEmpty(prazo)) {
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern(ApplicationConstants.DATE_PATTERN);
 			LocalDate prazoParse = LocalDate.parse(prazo, formatter);
 			tarefa.setPrazo(prazoParse);
 		}

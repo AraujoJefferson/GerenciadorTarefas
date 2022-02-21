@@ -1,5 +1,7 @@
 package br.com.crja.api.gerentarefas.exception;
 
+import java.time.format.DateTimeParseException;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpHeaders;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import br.com.crja.api.gerentarefas.constant.MensagemConstants;
 
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
@@ -44,12 +48,32 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 		return new ResponseEntity<>(getError(ex, HttpStatus.NOT_FOUND), HttpStatus.NOT_FOUND);
 	}
 
-	private ErrorDetails getError(Exception ex, HttpStatus status) {
-        ErrorDetails errorDetail = new ErrorDetails();
-        errorDetail.setStatus(status.value());
-        errorDetail.setDetail(ex.getMessage());
-        errorDetail.setDeveloperMessage(ex.getClass().getName());
+	@ExceptionHandler(value = { DateTimeParseException.class })
+	protected ResponseEntity<?> handleDatePattern(Exception ex) {
+		loggerREH.error(ex.getClass().getName());
+		loggerREH.error(MensagemConstants.SERVICE_PESSOA_DATA_PATTERN);
+		return new ResponseEntity<>(getError(ex, MensagemConstants.SERVICE_PESSOA_DATA_PATTERN, HttpStatus.BAD_REQUEST),
+				HttpStatus.BAD_REQUEST);
+	}
 
-        return errorDetail;
-    }
+	@ExceptionHandler(value = { DataIncorretaException.class })
+	protected ResponseEntity<?> handleDateIncorreta(Exception ex) {
+		loggerREH.error(ex.getClass().getName());
+		loggerREH.error(ex.getMessage());
+		return new ResponseEntity<>(getError(ex, HttpStatus.BAD_REQUEST),
+				HttpStatus.BAD_REQUEST);
+	}
+
+	private ErrorDetails getError(Exception ex, String mensagem, HttpStatus status) {
+		ErrorDetails errorDetail = new ErrorDetails();
+		errorDetail.setStatus(status.value());
+		errorDetail.setDetail(mensagem);
+		errorDetail.setDeveloperMessage(ex.getClass().getName());
+
+		return errorDetail;
+	}
+
+	private ErrorDetails getError(Exception ex, HttpStatus status) {
+		return getError(ex, ex.getMessage(), status);
+	}
 }

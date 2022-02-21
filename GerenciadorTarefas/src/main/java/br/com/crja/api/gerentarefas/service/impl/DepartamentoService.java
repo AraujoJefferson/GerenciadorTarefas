@@ -36,7 +36,7 @@ public class DepartamentoService implements IDepartamentoService {
 	}
 
 	@Override
-	public List listarDepartamento() {
+	public List<?> listarDepartamento() {
 		return StreamSupport.stream(repository.findAll().spliterator(), false)
 				.map(depart -> {
 					HashMap<String, String> dp = new HashMap<>();

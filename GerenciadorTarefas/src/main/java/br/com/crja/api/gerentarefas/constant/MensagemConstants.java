@@ -10,6 +10,7 @@ public class MensagemConstants {
 	public static final String PESSOA_TOTAL = "Listar pessoas trazendo nome, departamento, total horas gastas nas tarefas";
 	public static final String SERVICE_DEPARTAMENTO = "Departamento não existe nos registros do sistema!";
 	public static final String SERVICE_PESSOA = "Pessoa não existe nos registros do sistema!";
+	public static final String SERVICE_PESSOA_DATA_PATTERN = "Data fora de padrão, por favor seguir como " + ApplicationConstants.DATE_PATTERN;
 	
 	//Tarefa
 	public static final String TAREFA_ADICIONAR = "Adicionar uma tarefa"; 
